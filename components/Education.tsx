@@ -2,7 +2,7 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="relative scroll-mt-24 min-h-screen px-6 py-32 max-w-[1280px] mx-auto"
+      className="relative scroll-mt-24 px-6 pt-24 pb-12 max-w-[1280px] mx-auto"
     >
       {/* HEADER */}
       <div className="mb-24 text-center">

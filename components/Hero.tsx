@@ -1,11 +1,12 @@
 import Image from "next/image";
+import { Github, Linkedin, Instagram, Globe } from "lucide-react";
 
 export default function Hero() {
   return (
     <section id="hero" className="relative min-h-screen pt-24 overflow-hidden">
       {/* BACKGROUND GRADIENT - Sama seperti referensi */}
       <div className="absolute inset-0 -z-30">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#16082b] to-[#0b0614]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#16082b] to-[#14062B]" />
         {/* Purple radial glow di tengah-kanan */}
         <div className="absolute top-1/2 right-[20%] -translate-y-1/2 w-[1000px] h-[1000px] bg-purple-600/15 rounded-full blur-[150px]" />
         {/* Purple glow tambahan di kiri bawah */}
@@ -47,23 +48,75 @@ export default function Hero() {
               architecture and great user experience.
             </p>
 
-            <div className="flex items-center gap-4 flex-wrap">
-              <button className="px-8 py-3.5 rounded-full bg-purple-600 text-white text-sm font-semibold hover:bg-purple-500 transition-all duration-300 shadow-lg shadow-purple-600/30 hover:shadow-purple-500/40">
-                Hire Me
-              </button>
-
-              <button className="px-8 py-3.5 rounded-full border-2 border-purple-500/40 text-purple-300 text-sm font-semibold hover:bg-purple-500/10 hover:border-purple-400/60 transition-all duration-300">
+            <div className="flex items-center gap-6 flex-wrap">
+              {/* DOWNLOAD CV */}
+              <button
+                className="
+    px-8 py-3.5 rounded-full
+    border-2 border-[#9D80C8]/40
+    text-[#9D80C8] text-sm font-semibold
+    hover:bg-[#9D80C8]/10
+    hover:border-[#9D80C8]/60
+    transition-all duration-300
+  "
+              >
                 Download CV
               </button>
+
+              {/* SOCIAL MEDIA */}
+              <div className="flex items-center gap-3">
+                {[
+                  { href: "https://github.com/username", icon: Github },
+                  { href: "https://linkedin.com/in/username", icon: Linkedin },
+                  { href: "https://instagram.com/username", icon: Instagram },
+                  { href: "https://yourwebsite.com", icon: Globe },
+                ].map(({ href, icon: Icon }, i) => (
+                  <a
+                    key={i}
+                    href={href}
+                    target="_blank"
+                    className="
+        w-11 h-11 flex items-center justify-center
+        rounded-full
+        border border-[#9D80C8]/40
+        text-[#9D80C8]
+        hover:bg-[#9D80C8]/15
+        hover:border-[#9D80C8]/60
+        transition
+      "
+                  >
+                    <Icon size={18} className="text-[#9D80C8]" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
           {/* RIGHT IMAGE */}
+          {/* RIGHT IMAGE */}
           <div className="col-span-12 lg:col-span-6 flex justify-center lg:justify-end z-10">
-            <div className="relative w-[340px] lg:w-[380px] h-[440px] lg:h-[480px] rounded-[40px] overflow-hidden border-2 border-white/10 shadow-[0_8px_80px_rgba(168,85,247,0.4)] hover:shadow-[0_8px_100px_rgba(168,85,247,0.5)] transition-shadow duration-300">
+            <div
+              className="
+      relative
+      w-[340px] lg:w-[380px]
+      h-[440px] lg:h-[480px]
+      rounded-[40px]
+      overflow-hidden
+      border-2 border-[#9D80C8]/40
+      shadow-[0_20px_100px_rgba(157,128,200,0.35)]
+      transform
+      rotate-[6deg]
+      skew-y-[1deg]
+      transition-transform duration-500
+      hover:rotate-[2deg]
+      hover:skew-y-0
+    "
+            >
+              {/* OVERLAY GRADIENT */}
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/30 to-transparent z-10" />
+
               <Image
-                src="/idam.png"
+                src="/idamkemejahitam.png"
                 alt="Idam Palada"
                 fill
                 className="object-cover"
@@ -74,7 +127,7 @@ export default function Hero() {
         </div>
 
         {/* STATS */}
-        <div className="mt-14 flex items-center gap-20 flex-wrap ml-[400px]">
+        <div className="mt-14 flex items-center gap-40 flex-wrap ml-[100px]">
           {/* EXPERIENCE */}
           <div className="flex items-center gap-4">
             <span className="text-5xl font-bold text-white">2</span>
@@ -90,6 +143,24 @@ export default function Hero() {
             <div className="leading-tight">
               <p className="text-sm text-gray-400">Projects</p>
               <p className="text-sm text-gray-400">Completed</p>
+            </div>
+          </div>
+
+          {/* WORK OFFICE */}
+          <div className="flex items-center gap-4">
+            <span className="text-5xl font-bold text-white">3</span>
+            <div className="leading-tight">
+              <p className="text-sm text-gray-400">Work</p>
+              <p className="text-sm text-gray-400">Office</p>
+            </div>
+          </div>
+
+          {/* AGE */}
+          <div className="flex items-center gap-4">
+            <span className="text-5xl font-bold text-white">23</span>
+            <div className="leading-tight">
+              <p className="text-sm text-gray-400">Years</p>
+              <p className="text-sm text-gray-400">Old</p>
             </div>
           </div>
         </div>

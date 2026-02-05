@@ -25,7 +25,7 @@ export default function RootLayout({
         className={`
           ${sora.variable}
           font-sans
-          bg-[#0B0614]
+          bg-[#14062B]
           text-white
           antialiased
         `}

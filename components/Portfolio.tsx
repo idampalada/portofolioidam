@@ -44,10 +44,10 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="relative scroll-mt-24 min-h-screen px-6 py-32 max-w-[1280px] mx-auto"
+      className="relative scroll-mt-24 px-6 pt-20 pb-32 max-w-[1280px] mx-auto"
     >
       {/* HEADER */}
-      <div className="mb-24 text-center">
+      <div className="mb-16 text-center">
         <h2 className="text-5xl md:text-6xl font-bold text-purple-400 mb-4">
           Project Portfolio
         </h2>

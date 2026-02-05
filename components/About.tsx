@@ -2,22 +2,19 @@ import Image from "next/image";
 
 export default function About() {
   return (
-    <section
-      id="about"
-      className="relative scroll-mt-24 min-h-screen overflow-hidden"
-    >
+    <section id="about" className="relative scroll-mt-24 overflow-hidden">
       {/* BACKGROUND */}
       <div className="absolute inset-0 -z-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#16082b] to-[#0b0614]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#16082b] to-[#14062B]" />
         {/* subtle grid feel */}
         <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] bg-[size:48px_48px]" />
         {/* glow */}
         <div className="absolute top-1/2 left-[10%] -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/10 rounded-full blur-[140px]" />
       </div>
 
-      <div className="max-w-[1280px] mx-auto px-6 py-32">
+      <div className="max-w-[1280px] mx-auto px-6 pt-30 pb-10">
         {/* SECTION HEADER */}
-        <div className="mb-24 text-center">
+        <div className="mb-16 text-center">
           <h2 className="text-5xl md:text-6xl font-bold text-purple-400 mb-4">
             About Me
           </h2>
@@ -69,7 +66,7 @@ export default function About() {
           <div className="col-span-12 lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-[280px] lg:w-[320px] h-[280px] lg:h-[320px] rounded-full overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(168,85,247,0.35)]">
               <Image
-                src="/about.jpg" // ganti dengan foto kamu
+                src="/idamkemejahitam.png" // ganti dengan foto kamu
                 alt="Idam Palada"
                 fill
                 className="object-cover"

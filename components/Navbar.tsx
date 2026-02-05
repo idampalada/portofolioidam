@@ -13,7 +13,7 @@ const MENU = [
 export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 z-50 w-full">
-      <div className="w-full bg-gradient-to-r from-[#0b0614] via-[#1a0f2e] to-[#0b0614]">
+      <div className="w-full bg-gradient-to-r from-[#14062B] via-[#1a0f2e] to-[#14062B]">
         {/* FULL WIDTH GRID */}
         <nav className="h-20 px-12 grid grid-cols-3 items-center">
           {/* LEFT — NAMA */}

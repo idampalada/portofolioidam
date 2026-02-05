@@ -2,11 +2,23 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 min-h-screen px-6 py-32 max-w-[1280px] mx-auto"
+      className="relative scroll-mt-24 px-6 pt-4 pb-16 max-w-[1280px] mx-auto"
     >
+      {/* HEADER */}
+      <div className="mb-20 text-center">
+        <h2 className="text-5xl md:text-6xl font-bold text-purple-400 mb-4">
+          Contact
+        </h2>
+        <p className="flex items-center justify-center gap-3 text-gray-400">
+          <span className="text-purple-400">✦</span>
+          Have a question? Send me a message, and I'll get back to you right
+          away.
+          <span className="text-purple-400">✦</span>
+        </p>
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         {/* ================= LEFT — FORM ================= */}
-        <div className="relative rounded-3xl p-10 bg-gradient-to-br from-[#1a0b2e] via-[#12081f] to-[#0b0614] border border-white/10 shadow-[0_0_80px_rgba(168,85,247,0.25)]">
+        <div className="relative rounded-3xl p-10 bg-gradient-to-br from-[#1a0b2e] via-[#12081f] to-[#14062B] border border-white/10 shadow-[0_0_80px_rgba(168,85,247,0.25)]">
           <h2 className="text-4xl md:text-5xl font-bold text-purple-300 mb-4">
             Let’s work together!
           </h2>
