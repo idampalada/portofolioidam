@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Github, Linkedin, Instagram, Globe } from "lucide-react";
+import { Github, Linkedin, Instagram, Phone } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -66,10 +66,19 @@ export default function Hero() {
               {/* SOCIAL MEDIA */}
               <div className="flex items-center gap-3">
                 {[
-                  { href: "https://github.com/username", icon: Github },
-                  { href: "https://linkedin.com/in/username", icon: Linkedin },
-                  { href: "https://instagram.com/username", icon: Instagram },
-                  { href: "https://yourwebsite.com", icon: Globe },
+                  { href: "https://github.com/idampalada", icon: Github },
+                  {
+                    href: "https://linkedin.com/in/idam-palada",
+                    icon: Linkedin,
+                  },
+                  {
+                    href: "https://instagram.com/idam.palada",
+                    icon: Instagram,
+                  },
+                  {
+                    href: "https://wa.me/6281287809468",
+                    icon: Phone,
+                  },
                 ].map(({ href, icon: Icon }, i) => (
                   <a
                     key={i}
