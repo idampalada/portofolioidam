@@ -66,10 +66,10 @@ export default function About() {
           <div className="col-span-12 lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-[280px] lg:w-[320px] h-[280px] lg:h-[320px] rounded-full overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(168,85,247,0.35)]">
               <Image
-                src="/idamkemejahitam.png" // ganti dengan foto kamu
+                src="/idambatik.png"
                 alt="Idam Palada"
                 fill
-                className="object-cover"
+                className="object-cover object-[50%_20%]"
               />
             </div>
           </div>

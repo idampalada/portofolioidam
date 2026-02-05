@@ -151,7 +151,7 @@ export default function Hero() {
             <span className="text-5xl font-bold text-white">3</span>
             <div className="leading-tight">
               <p className="text-sm text-gray-400">Work</p>
-              <p className="text-sm text-gray-400">Office</p>
+              <p className="text-sm text-gray-400">Experience</p>
             </div>
           </div>
 
