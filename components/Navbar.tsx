@@ -5,6 +5,7 @@ import Link from "next/link";
 const MENU = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Education", href: "#education" },
   { label: "Portfolio", href: "#portfolio" },
   { label: "Contact", href: "#contact" },
 ];
