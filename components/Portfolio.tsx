@@ -20,6 +20,24 @@ const projects = [
     media: "/coaa.mp4",
     type: "video",
   },
+  {
+    id: 4,
+    desc: "Merancang dan mendesain website company profile laboratorium PT Chemkit Multi Guna untuk menampilkan profil perusahaan dan produk laboratorium.",
+    media: "/chemkit.mp4",
+    type: "video",
+  },
+  {
+    id: 5,
+    desc: "Mengembangkan dan memelihara aplikasi shortlink dengan penerapan pemantauan keamanan sistem untuk memastikan kinerja optimal dan keandalan aplikasi.",
+    media: "/shortlink.mp4",
+    type: "video",
+  },
+  {
+    id: 6,
+    desc: "Mengembangkan sistem manajemen aset untuk pengelolaan kendaraan, ruangan, dan barang milik negara, termasuk integrasi perangkat IoT pada aset kendaraan.",
+    media: "/mapu.mp4",
+    type: "video",
+  },
 ];
 
 export default function Portfolio() {
