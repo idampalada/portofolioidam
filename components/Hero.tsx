@@ -13,10 +13,10 @@ export default function Hero() {
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[120px]" />
       </div>
 
-      {/* TRANSPARENT "HI" BACKGROUND TEXT - Lebih terlihat */}
+      {/* TRANSPARENT "HI" BACKGROUND TEXT - Responsive size */}
       <div className="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none overflow-hidden">
         <span
-          className="text-[380px] font-bold tracking-tighter select-none leading-none"
+          className="text-[200px] md:text-[280px] lg:text-[380px] font-bold tracking-tighter select-none leading-none"
           style={{
             color: "transparent",
             WebkitTextStroke: "1px rgba(255, 255, 255, 0.03)",
@@ -27,44 +27,44 @@ export default function Hero() {
       </div>
 
       {/* CONTENT */}
-      <div className="max-w-[1280px] mx-auto px-8 lg:px-12 w-full">
-        <div className="grid grid-cols-12 gap-12 items-center min-h-[calc(100vh-96px)]">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-8 lg:px-12 w-full">
+        <div className="grid grid-cols-12 gap-8 lg:gap-12 items-center min-h-[calc(100vh-96px)] pt-20 md:pt-0">
           {/* LEFT CONTENT */}
-          <div className="col-span-12 lg:col-span-6 z-10">
-            <p className="text-purple-400 mb-4 text-sm font-medium tracking-wide">
+          <div className="col-span-12 lg:col-span-6 z-10 text-center lg:text-left">
+            <p className="text-purple-400 mb-3 md:mb-4 text-sm font-medium tracking-wide">
               Hi, I'm
             </p>
 
-            <h1 className="text-5xl lg:text-6xl leading-tight font-bold mb-3 text-white">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl leading-tight font-bold mb-2 md:mb-3 text-white">
               Idam Palada
             </h1>
 
-            <h2 className="text-4xl lg:text-5xl leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 mb-8">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 mb-6 md:mb-8">
               Fullstack Developer
             </h2>
 
-            <p className="text-gray-400 max-w-[520px] text-base leading-relaxed mb-10">
+            <p className="text-gray-400 max-w-[520px] mx-auto lg:mx-0 text-sm md:text-base leading-relaxed mb-8 md:mb-10 px-4 md:px-0">
               I build scalable, high-performance web applications with clean
               architecture and great user experience.
             </p>
 
-            <div className="flex items-center gap-6 flex-wrap">
+            <div className="flex items-center justify-center lg:justify-start gap-4 md:gap-6 flex-wrap">
               {/* DOWNLOAD CV */}
               <button
                 className="
-    px-8 py-3.5 rounded-full
-    border-2 border-[#9D80C8]/40
-    text-[#9D80C8] text-sm font-semibold
-    hover:bg-[#9D80C8]/10
-    hover:border-[#9D80C8]/60
-    transition-all duration-300
-  "
+                  px-6 md:px-8 py-3 md:py-3.5 rounded-full
+                  border-2 border-[#9D80C8]/40
+                  text-[#9D80C8] text-sm font-semibold
+                  hover:bg-[#9D80C8]/10
+                  hover:border-[#9D80C8]/60
+                  transition-all duration-300
+                "
               >
                 Download CV
               </button>
 
               {/* SOCIAL MEDIA */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 md:gap-3">
                 {[
                   { href: "https://github.com/idampalada", icon: Github },
                   {
@@ -84,15 +84,16 @@ export default function Hero() {
                     key={i}
                     href={href}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="
-        w-11 h-11 flex items-center justify-center
-        rounded-full
-        border border-[#9D80C8]/40
-        text-[#9D80C8]
-        hover:bg-[#9D80C8]/15
-        hover:border-[#9D80C8]/60
-        transition
-      "
+                      w-10 md:w-11 h-10 md:h-11 flex items-center justify-center
+                      rounded-full
+                      border border-[#9D80C8]/40
+                      text-[#9D80C8]
+                      hover:bg-[#9D80C8]/15
+                      hover:border-[#9D80C8]/60
+                      transition
+                    "
                   >
                     <Icon size={18} className="text-[#9D80C8]" />
                   </a>
@@ -102,24 +103,23 @@ export default function Hero() {
           </div>
 
           {/* RIGHT IMAGE */}
-          {/* RIGHT IMAGE */}
-          <div className="col-span-12 lg:col-span-6 flex justify-center lg:justify-end z-10">
+          <div className="col-span-12 lg:col-span-6 flex justify-center lg:justify-end z-10 mt-8 lg:mt-0">
             <div
               className="
-      relative
-      w-[340px] lg:w-[380px]
-      h-[440px] lg:h-[480px]
-      rounded-[40px]
-      overflow-hidden
-      border-2 border-[#9D80C8]/40
-      shadow-[0_20px_100px_rgba(157,128,200,0.35)]
-      transform
-      rotate-[6deg]
-      skew-y-[1deg]
-      transition-transform duration-500
-      hover:rotate-[2deg]
-      hover:skew-y-0
-    "
+                relative
+                w-[280px] md:w-[340px] lg:w-[380px]
+                h-[360px] md:h-[440px] lg:h-[480px]
+                rounded-[30px] md:rounded-[40px]
+                overflow-hidden
+                border-2 border-[#9D80C8]/40
+                shadow-[0_15px_60px_rgba(157,128,200,0.25)] md:shadow-[0_20px_100px_rgba(157,128,200,0.35)]
+                transform
+                rotate-[6deg]
+                skew-y-[1deg]
+                transition-transform duration-500
+                hover:rotate-[2deg]
+                hover:skew-y-0
+              "
             >
               {/* OVERLAY GRADIENT */}
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/30 to-transparent z-10" />
@@ -134,48 +134,56 @@ export default function Hero() {
             </div>
           </div>
         </div>
+
         {/* BOTTOM INFO */}
-        <div className="mt-2 max-w-[1100px] mx-auto">
+        <div className="mt-8 md:mt-2 max-w-[1100px] mx-auto pb-12 md:pb-0">
           {/* INTRO TEXT */}
-          {/* INTRO TEXT */}
-          <p className="mt-12 mb-10 ml-35 text-gray-300 text-base whitespace-nowrap">
+          <p className="mt-8 md:mt-12 mb-8 md:mb-10 text-center lg:text-left lg:ml-0 text-gray-300 text-sm md:text-base px-4 md:px-0">
             I help businesses or individuals build reliable web solutions. Here
             are some of our recent projects.
           </p>
 
           {/* STATS */}
-          <div className="flex items-center justify-between flex-wrap gap-12">
+          <div className="flex items-center justify-center lg:justify-between flex-wrap gap-8 md:gap-12 px-4 md:px-0">
             {/* EXPERIENCE */}
-            <div className="flex items-center gap-4">
-              <span className="text-5xl font-bold text-white">2+</span>
+            <div className="flex items-center gap-3 md:gap-4">
+              <span className="text-4xl md:text-5xl font-bold text-white">
+                2+
+              </span>
               <div className="leading-tight">
-                <p className="text-sm text-gray-400">Years of</p>
-                <p className="text-sm text-gray-400">Experience</p>
+                <p className="text-xs md:text-sm text-gray-400">Years of</p>
+                <p className="text-xs md:text-sm text-gray-400">Experience</p>
               </div>
             </div>
 
             {/* CLIENTS */}
-            <div className="flex items-center gap-4">
-              <span className="text-5xl font-bold text-white">99%</span>
+            <div className="flex items-center gap-3 md:gap-4">
+              <span className="text-4xl md:text-5xl font-bold text-white">
+                99%
+              </span>
               <div className="leading-tight">
-                <p className="text-sm text-gray-400">Client Satisfaction</p>
-                <p className="text-sm text-gray-400">Rate</p>
+                <p className="text-xs md:text-sm text-gray-400">
+                  Client Satisfaction
+                </p>
+                <p className="text-xs md:text-sm text-gray-400">Rate</p>
               </div>
             </div>
 
             {/* PROJECT */}
-            <div className="flex items-center gap-4">
-              <span className="text-5xl font-bold text-white">5+</span>
+            <div className="flex items-center gap-3 md:gap-4">
+              <span className="text-4xl md:text-5xl font-bold text-white">
+                5+
+              </span>
               <div className="leading-tight">
-                <p className="text-sm text-gray-400">Project</p>
-                <p className="text-sm text-gray-400">Complete</p>
+                <p className="text-xs md:text-sm text-gray-400">Project</p>
+                <p className="text-xs md:text-sm text-gray-400">Complete</p>
               </div>
             </div>
           </div>
 
           {/* HAPPY CLIENTS */}
-          <div className="mt-8">
-            <p className="mt-6 ml-4 lg:ml-90 text-sm text-gray-400">
+          <div className="mt-6 md:mt-8 text-center lg:text-left px-4 md:px-0">
+            <p className="mt-4 md:mt-6 lg:ml-0 text-xs md:text-sm text-gray-400">
               <span className="text-gray-300 font-medium">
                 Our happy clients:
               </span>{" "}
