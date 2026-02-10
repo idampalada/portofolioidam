@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function ProjectDetailMapu() {
   return (
-    <section className="min-h-screen px-6 py-32 max-w-[1280px] mx-auto text-white">
+    <section className="min-h-screen px-5 sm:px-6 py-24 sm:py-32 max-w-[1280px] mx-auto text-white">
       {/* BREADCRUMB */}
-      <div className="mb-10 flex items-center gap-4 text-sm text-gray-400">
+      <div className="mb-10 flex flex-wrap items-center gap-3 text-sm text-gray-400">
         <Link
           href="/#portfolio"
           className="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition"
@@ -18,14 +18,16 @@ export default function ProjectDetailMapu() {
       </div>
 
       {/* MAIN GRID */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
         {/* LEFT CONTENT */}
-        <div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight text-[#F3C6D3]">
+        <div className="flex flex-col">
+          {/* TITLE */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight text-[#F3C6D3]">
             Website Aplikasi <br />
             Manajemen Aset
           </h1>
 
+          {/* DESCRIPTION */}
           <p className="text-gray-400 leading-relaxed mb-10">
             Mengembangkan sistem manajemen aset untuk pengelolaan kendaraan,
             ruangan, dan barang milik negara secara terpusat. Sistem ini
@@ -36,7 +38,7 @@ export default function ProjectDetailMapu() {
           </p>
 
           {/* STATS */}
-          <div className="flex gap-6 mb-10">
+          <div className="flex flex-wrap gap-4 mb-10">
             <div className="px-6 py-4 rounded-xl bg-white/5 border border-white/10">
               <p className="text-xl font-bold">6</p>
               <p className="text-sm text-gray-400">Total Teknologi</p>
@@ -49,23 +51,17 @@ export default function ProjectDetailMapu() {
           </div>
 
           {/* ACTION */}
-          <div className="flex gap-4 mb-16">
+          <div className="flex gap-4 mb-12">
             <a
               href="#"
-              className="
-                px-6 py-3 rounded-xl
-                bg-white/5 border border-white/10
-                text-white font-medium
-                hover:bg-white/10
-                transition
-              "
+              className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
             >
               Live Demo
             </a>
           </div>
 
           {/* TECHNOLOGIES */}
-          <div className="mb-16">
+          <div className="mb-12">
             <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
               <span className="text-purple-400">&lt;/&gt;</span>
               Technologies Used
@@ -82,13 +78,7 @@ export default function ProjectDetailMapu() {
               ].map((tech) => (
                 <span
                   key={tech}
-                  className="
-                    px-4 py-2 rounded-full
-                    bg-white/5 border border-white/10
-                    text-sm text-gray-300
-                    hover:border-purple-500/40
-                    transition
-                  "
+                  className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300"
                 >
                   {tech}
                 </span>
@@ -96,8 +86,8 @@ export default function ProjectDetailMapu() {
             </div>
           </div>
 
-          {/* KEY FEATURES */}
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+          {/* KEY FEATURES — PALING BAWAH */}
+          <div className="order-last lg:order-none rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 mt-12 lg:mt-0">
             <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
               <span className="text-yellow-400">★</span>
               Key Features
@@ -117,8 +107,8 @@ export default function ProjectDetailMapu() {
           </div>
         </div>
 
-        {/* RIGHT MEDIA */}
-        <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-black">
+        {/* RIGHT MEDIA — VIDEO DI ATAS KEY FEATURES (MOBILE) */}
+        <div className="order-5 lg:order-none relative rounded-3xl overflow-hidden border border-white/10 bg-black">
           <video
             src="/mapu.mp4"
             className="w-full h-full object-cover"

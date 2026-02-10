@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const projects = [
   {
@@ -41,6 +44,8 @@ const projects = [
 ];
 
 export default function Portfolio() {
+  const [activeId, setActiveId] = useState<number | null>(null);
+
   return (
     <section
       id="portfolio"
@@ -61,67 +66,74 @@ export default function Portfolio() {
 
       {/* GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className="
-              group relative overflow-hidden rounded-2xl
-              bg-white/5 border border-white/10
-              hover:border-purple-500/40
-              transition-colors
-            "
-          >
-            {/* MEDIA */}
-            <div className="relative h-[420px] bg-black">
-              {project.type === "image" ? (
-                <Image
-                  src={project.media}
-                  alt="Project preview"
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <video
-                  src={project.media}
-                  className="w-full h-full object-cover"
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                />
-              )}
-            </div>
+        {projects.map((project) => {
+          const isActive = activeId === project.id;
 
-            {/* HOVER OVERLAY */}
+          return (
             <div
+              key={project.id}
+              onClick={() => setActiveId(isActive ? null : project.id)}
               className="
-                absolute inset-0
-                bg-black/60 backdrop-blur-[2px]
-                opacity-0 group-hover:opacity-100
-                transition-opacity duration-300
-                flex flex-col items-center justify-center
-                text-center px-6
+                group relative overflow-hidden rounded-2xl
+                bg-white/5 border border-white/10
+                hover:border-purple-500/40
+                transition-colors cursor-pointer
               "
             >
-              <p className="text-gray-200 text-sm leading-relaxed mb-6">
-                {project.desc}
-              </p>
+              {/* MEDIA */}
+              <div className="relative h-[420px] bg-black">
+                {project.type === "image" ? (
+                  <Image
+                    src={project.media}
+                    alt="Project preview"
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <video
+                    src={project.media}
+                    className="w-full h-full object-cover"
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                  />
+                )}
+              </div>
 
-              <div className="flex items-center gap-4">
-                <button className="px-4 py-2 rounded-lg bg-white/90 text-black text-sm font-medium hover:bg-white transition">
-                  View App
-                </button>
+              {/* OVERLAY */}
+              <div
+                className={`
+                  absolute inset-0
+                  bg-black/60 backdrop-blur-[2px]
+                  flex flex-col items-center justify-center
+                  text-center px-6
+                  transition-opacity duration-300
+                  md:opacity-0 md:group-hover:opacity-100
+                  ${isActive ? "opacity-100" : "opacity-0 md:opacity-0"}
+                `}
+              >
+                <p className="text-gray-200 text-sm leading-relaxed mb-6">
+                  {project.desc}
+                </p>
 
-                <Link
-                  href={`/project/${project.id}`}
-                  className="px-4 py-2 rounded-lg bg-black/40 text-white text-sm font-medium border border-white/20 hover:bg-black/60 transition"
-                >
-                  Details →
-                </Link>
+                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                  <button className="px-4 py-2 rounded-lg bg-white/90 text-black text-sm font-medium hover:bg-white transition">
+                    View App
+                  </button>
+
+                  <Link
+                    href={`/project/${project.id}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="px-4 py-2 rounded-lg bg-black/40 text-white text-sm font-medium border border-white/20 hover:bg-black/60 transition"
+                  >
+                    Details →
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
