@@ -187,7 +187,7 @@ export default function Hero() {
               <span className="text-gray-300 font-medium">
                 Our happy clients:
               </span>{" "}
-              Sneakerflash, COA, KJM, PUPR, dll
+              Sneakersflash, COA, KJM, PUPR, dll
             </p>
           </div>
         </div>
