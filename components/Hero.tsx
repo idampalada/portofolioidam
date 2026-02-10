@@ -3,7 +3,7 @@ import { Github, Linkedin, Instagram, Phone } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen pt-24 overflow-hidden">
+    <section id="hero" className="relative min-h-screen pt-2 overflow-hidden">
       {/* BACKGROUND GRADIENT - Sama seperti referensi */}
       <div className="absolute inset-0 -z-30">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#16082b] to-[#14062B]" />
@@ -134,43 +134,53 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        {/* BOTTOM INFO */}
+        <div className="mt-2 max-w-[1100px] mx-auto">
+          {/* INTRO TEXT */}
+          {/* INTRO TEXT */}
+          <p className="mt-12 mb-10 ml-35 text-gray-300 text-base whitespace-nowrap">
+            I help businesses or individuals build reliable web solutions. Here
+            are some of our recent projects.
+          </p>
 
-        {/* STATS */}
-        <div className="mt-14 flex items-center gap-40 flex-wrap ml-[100px]">
-          {/* EXPERIENCE */}
-          <div className="flex items-center gap-4">
-            <span className="text-5xl font-bold text-white">2</span>
-            <div className="leading-tight">
-              <p className="text-sm text-gray-400">Years of</p>
-              <p className="text-sm text-gray-400">Experience</p>
+          {/* STATS */}
+          <div className="flex items-center justify-between flex-wrap gap-12">
+            {/* EXPERIENCE */}
+            <div className="flex items-center gap-4">
+              <span className="text-5xl font-bold text-white">2+</span>
+              <div className="leading-tight">
+                <p className="text-sm text-gray-400">Years of</p>
+                <p className="text-sm text-gray-400">Experience</p>
+              </div>
+            </div>
+
+            {/* CLIENTS */}
+            <div className="flex items-center gap-4">
+              <span className="text-5xl font-bold text-white">99%</span>
+              <div className="leading-tight">
+                <p className="text-sm text-gray-400">Client Satisfaction</p>
+                <p className="text-sm text-gray-400">Rate</p>
+              </div>
+            </div>
+
+            {/* PROJECT */}
+            <div className="flex items-center gap-4">
+              <span className="text-5xl font-bold text-white">5+</span>
+              <div className="leading-tight">
+                <p className="text-sm text-gray-400">Project</p>
+                <p className="text-sm text-gray-400">Complete</p>
+              </div>
             </div>
           </div>
 
-          {/* PROJECTS */}
-          <div className="flex items-center gap-4">
-            <span className="text-5xl font-bold text-white">5</span>
-            <div className="leading-tight">
-              <p className="text-sm text-gray-400">Projects</p>
-              <p className="text-sm text-gray-400">Completed</p>
-            </div>
-          </div>
-
-          {/* WORK OFFICE */}
-          <div className="flex items-center gap-4">
-            <span className="text-5xl font-bold text-white">3</span>
-            <div className="leading-tight">
-              <p className="text-sm text-gray-400">Work</p>
-              <p className="text-sm text-gray-400">Experience</p>
-            </div>
-          </div>
-
-          {/* AGE */}
-          <div className="flex items-center gap-4">
-            <span className="text-5xl font-bold text-white">23</span>
-            <div className="leading-tight">
-              <p className="text-sm text-gray-400">Years</p>
-              <p className="text-sm text-gray-400">Old</p>
-            </div>
+          {/* HAPPY CLIENTS */}
+          <div className="mt-8">
+            <p className="mt-6 ml-4 lg:ml-90 text-sm text-gray-400">
+              <span className="text-gray-300 font-medium">
+                Our happy clients:
+              </span>{" "}
+              Sneakerflash, COA, KJM, PUPR, dll
+            </p>
           </div>
         </div>
       </div>
