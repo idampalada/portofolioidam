@@ -1,7 +1,43 @@
+"use client";
+import { useState, useEffect } from "react";
+
 import Image from "next/image";
 import { Github, Linkedin, Instagram, Phone } from "lucide-react";
 
 export default function Hero() {
+  const texts = ["Fullstack Developer", "Backend Engineer", "UI/UX Design"];
+
+  const [textIndex, setTextIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentText = texts[textIndex];
+    const typingSpeed = isDeleting ? 50 : 100;
+    const pauseTime = 1500;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        // NGETIK
+        setDisplayedText(currentText.substring(0, displayedText.length + 1));
+
+        if (displayedText === currentText) {
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        // MENGHAPUS
+        setDisplayedText(currentText.substring(0, displayedText.length - 1));
+
+        if (displayedText === "") {
+          setIsDeleting(false);
+          setTextIndex((prev) => (prev + 1) % texts.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, isDeleting, textIndex]);
+
   return (
     <section id="hero" className="relative min-h-screen pt-2 overflow-hidden">
       {/* BACKGROUND GRADIENT - Sama seperti referensi */}
@@ -40,7 +76,8 @@ export default function Hero() {
             </h1>
 
             <h2 className="text-3xl md:text-4xl lg:text-5xl leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 mb-6 md:mb-8">
-              Fullstack Developer
+              {displayedText}
+              <span className="animate-pulse text-purple-300">|</span>
             </h2>
 
             <p className="text-gray-400 max-w-[520px] mx-auto lg:mx-0 text-sm md:text-base leading-relaxed mb-8 md:mb-10 px-4 md:px-0">
