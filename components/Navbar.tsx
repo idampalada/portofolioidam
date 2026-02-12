@@ -101,6 +101,7 @@ export default function Navbar() {
             onClick={() => setIsOpen(!isOpen)}
             className="relative z-[10001] w-10 h-10 flex flex-col items-center justify-center gap-1.5 touch-manipulation active:scale-95 transition-transform"
             aria-label="Toggle menu"
+            type="button"
           >
             <span
               className={`w-6 h-0.5 bg-white transition-all duration-300 ${
