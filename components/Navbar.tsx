@@ -15,7 +15,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full">
+    <header className="fixed top-0 left-0 z-[9999] w-full">
       <div className="w-full bg-gradient-to-r from-[#14062B] via-[#1a0f2e] to-[#14062B]">
         {/* DESKTOP NAVBAR */}
         <nav className="h-20 px-6 md:px-12 hidden md:grid grid-cols-3 items-center">
@@ -87,7 +87,7 @@ export default function Navbar() {
         </nav>
 
         {/* MOBILE NAVBAR */}
-        <nav className="h-16 px-6 flex md:hidden items-center justify-between">
+        <nav className="h-16 px-6 flex md:hidden items-center justify-between relative z-[10000]">
           {/* LOGO */}
           <div className="flex items-center gap-3">
             <span className="text-xl font-bold text-purple-400">Ϟ</span>
@@ -99,7 +99,7 @@ export default function Navbar() {
           {/* HAMBURGER BUTTON */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="relative z-50 w-8 h-8 flex flex-col items-center justify-center gap-1.5"
+            className="relative z-[10001] w-10 h-10 flex flex-col items-center justify-center gap-1.5 touch-manipulation active:scale-95 transition-transform"
             aria-label="Toggle menu"
           >
             <span
@@ -124,12 +124,11 @@ export default function Navbar() {
       {/* MOBILE MENU OVERLAY */}
       <div
         className={`
-          fixed inset-0 md:hidden
+          fixed inset-0 md:hidden z-[9998]
           bg-gradient-to-b from-[#14062B] via-[#1a0f2e] to-[#C27AFF]/20
           transition-all duration-500 ease-in-out
-          ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
+          ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}
         `}
-        style={{ top: 0 }}
       >
         <div className="relative h-full flex flex-col pt-20 px-8">
           {/* NAMA DI MENU */}
