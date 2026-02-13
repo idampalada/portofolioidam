@@ -98,7 +98,7 @@ rounded-full blur-[140px]"
 
             {/* QUOTE */}
             <div className="mt-10 mx-auto lg:mx-0 inline-block px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-sm text-gray-300 italic">
-              “Leveraging technology as a professional tool, not a replacement.”
+              “Learning fast. Building faster.”
             </div>
           </div>
         </div>
