@@ -2,10 +2,10 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="relative scroll-mt-24 px-6 pt-24 pb-12 max-w-[1280px] mx-auto"
+      className="relative scroll-mt-24 px-6 pt-14 md:pt-24 pb-12 max-w-[1280px] mx-auto"
     >
       {/* HEADER */}
-      <div className="mb-24 text-center">
+      <div className="mb-14 md:mb-24 text-center">
         <h2 className="text-5xl md:text-6xl font-bold text-purple-400 mb-4">
           Education & Experience
         </h2>

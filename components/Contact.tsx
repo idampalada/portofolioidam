@@ -2,7 +2,8 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 px-6 pt-4 pb-16 max-w-[1280px] mx-auto"
+      className="relative scroll-mt-24 px-6 -mt-16 md:mt-0
+ pt-0 md:pt-4 pb-16 max-w-[1280px] mx-auto"
     >
       {/* HEADER */}
       <div className="mb-20 text-center">

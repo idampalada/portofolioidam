@@ -185,7 +185,7 @@ md:skew-y-[1deg]
         </div>
 
         {/* BOTTOM INFO */}
-        <div className="mt-8 md:mt-2 max-w-[1100px] mx-auto pb-12 md:pb-0">
+        <div className="mt-6 md:mt-2 max-w-[1100px] mx-auto pb-4 md:pb-0">
           {/* INTRO TEXT */}
           <p className="mt-8 md:mt-12 mb-8 md:mb-10 text-center lg:text-left lg:ml-0 text-gray-300 text-sm md:text-base px-4 md:px-0">
             I help businesses or individuals build reliable web solutions. Here

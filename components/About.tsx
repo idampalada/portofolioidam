@@ -16,7 +16,7 @@ rounded-full blur-[140px]"
         />
       </div>
 
-      <div className="max-w-[1280px] mx-auto px-5 sm:px-6 pt-28 pb-16">
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-6 pt-16 md:pt-28 pb-16">
         {/* HEADER */}
         <div className="mb-14 text-center">
           <h2 className="text-5xl md:text-6xl font-bold text-purple-400 mb-4">
