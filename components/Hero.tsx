@@ -44,9 +44,16 @@ export default function Hero() {
       <div className="absolute inset-0 -z-30">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#16082b] to-[#14062B]" />
         {/* Purple radial glow di tengah-kanan */}
-        <div className="absolute top-1/2 right-[20%] -translate-y-1/2 w-[1000px] h-[1000px] bg-purple-600/15 rounded-full blur-[150px]" />
+        <div
+          className="hidden md:block absolute top-1/2 right-[20%] -translate-y-1/2 
+w-[1000px] h-[1000px] bg-purple-600/15 rounded-full blur-[150px]"
+        />
+
         {/* Purple glow tambahan di kiri bawah */}
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[120px]" />
+        <div
+          className="hidden md:block absolute bottom-0 left-0 
+w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[120px]"
+        />
       </div>
 
       {/* TRANSPARENT "HI" BACKGROUND TEXT - Responsive size */}
@@ -77,7 +84,7 @@ export default function Hero() {
 
             <h2 className="text-3xl md:text-4xl lg:text-5xl leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 mb-6 md:mb-8">
               {displayedText}
-              <span className="animate-pulse text-purple-300">|</span>
+              <span className="md:animate-pulse text-purple-300">|</span>
             </h2>
 
             <p className="text-gray-400 max-w-[520px] mx-auto lg:mx-0 text-sm md:text-base leading-relaxed mb-8 md:mb-10 px-4 md:px-0">
@@ -149,10 +156,12 @@ export default function Hero() {
                 rounded-[30px] md:rounded-[40px]
                 overflow-hidden
                 border-2 border-[#9D80C8]/40
-                shadow-[0_15px_60px_rgba(157,128,200,0.25)] md:shadow-[0_20px_100px_rgba(157,128,200,0.35)]
+                shadow-lg md:shadow-[0_20px_100px_rgba(157,128,200,0.35)]
+ md:shadow-[0_20px_100px_rgba(157,128,200,0.35)]
                 transform
-                rotate-[6deg]
-                skew-y-[1deg]
+                md:rotate-[6deg]
+md:skew-y-[1deg]
+
                 transition-transform duration-500
                 hover:rotate-[2deg]
                 hover:skew-y-0
