@@ -7,7 +7,13 @@ export default function About() {
       <div className="absolute inset-0 -z-20">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#16082b] to-[#14062B]" />
         <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] bg-[size:48px_48px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[680px] h-[680px] bg-purple-600/10 rounded-full blur-[140px]" />
+        <div
+          className="hidden md:block absolute top-1/2 left-1/2 
+-translate-x-1/2 -translate-y-1/2 
+w-[680px] h-[680px] 
+bg-purple-600/10 
+rounded-full blur-[140px]"
+        />
       </div>
 
       <div className="max-w-[1280px] mx-auto px-5 sm:px-6 pt-28 pb-16">
@@ -27,7 +33,10 @@ export default function About() {
         <div className="flex flex-col items-center gap-14 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
           {/* IMAGE */}
           <div className="w-full flex justify-center lg:col-span-5 lg:justify-end lg:order-2">
-            <div className="relative w-[220px] sm:w-[260px] lg:w-[320px] h-[220px] sm:h-[260px] lg:h-[320px] rounded-full overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(168,85,247,0.35)]">
+            <div
+              className="relative w-[220px] sm:w-[260px] lg:w-[320px] h-[220px] sm:h-[260px] lg:h-[320px] rounded-full overflow-hidden border border-white/10 shadow-md md:shadow-[0_0_80px_rgba(168,85,247,0.35)]
+"
+            >
               <Image
                 src="/idambatik.png"
                 alt="Idam Palada"
