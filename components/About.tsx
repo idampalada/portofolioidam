@@ -34,14 +34,36 @@ rounded-full blur-[140px]"
           {/* IMAGE */}
           <div className="w-full flex justify-center lg:col-span-5 lg:justify-end lg:order-2">
             <div
-              className="relative w-[220px] sm:w-[260px] lg:w-[320px] h-[220px] sm:h-[260px] lg:h-[320px] rounded-full overflow-hidden border border-white/10 shadow-md md:shadow-[0_0_80px_rgba(168,85,247,0.35)]
-"
+              className="
+    relative group
+    w-[220px] sm:w-[260px] lg:w-[320px]
+    h-[220px] sm:h-[260px] lg:h-[320px]
+    rounded-full overflow-hidden
+    border border-white/10
+    shadow-md md:shadow-[0_0_80px_rgba(168,85,247,0.35)]
+  "
             >
               <Image
                 src="/idambatik.png"
                 alt="Idam Palada"
                 fill
-                className="object-cover object-[50%_20%]"
+                className="
+        object-cover object-[50%_20%]
+        transition-transform duration-500
+        group-hover:scale-105
+      "
+              />
+
+              {/* SHINE EFFECT */}
+              <div
+                className="
+      absolute inset-0
+      bg-gradient-to-r from-transparent via-white/25 to-transparent
+      translate-x-[-120%]
+      group-hover:translate-x-[120%]
+      transition-transform duration-1000 ease-in-out
+      pointer-events-none
+    "
               />
             </div>
           </div>
