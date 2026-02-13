@@ -39,7 +39,7 @@ export default function Hero() {
   }, [displayedText, isDeleting, textIndex]);
 
   return (
-    <section id="hero" className="relative min-h-screen pt-2 overflow-hidden">
+    <section id="hero" className="relative md:min-h-screen overflow-hidden">
       {/* BACKGROUND GRADIENT - Sama seperti referensi */}
       <div className="absolute inset-0 -z-30">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#16082b] to-[#14062B]" />
@@ -71,7 +71,10 @@ w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[120px]"
 
       {/* CONTENT */}
       <div className="max-w-[1280px] mx-auto px-6 md:px-8 lg:px-12 w-full">
-        <div className="grid grid-cols-12 gap-8 lg:gap-12 items-center min-h-[calc(100vh-96px)] pt-20 md:pt-0">
+        <div
+          className="grid grid-cols-12 gap-8 lg:gap-12 items-center min-h-[calc(100vh-64px)] pt-8 md:pt-0
+"
+        >
           {/* LEFT CONTENT */}
           <div className="col-span-12 lg:col-span-6 z-10 text-center lg:text-left">
             <p className="text-purple-400 mb-3 md:mb-4 text-sm font-medium tracking-wide">
