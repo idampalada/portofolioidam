@@ -60,6 +60,7 @@ const techStack = [
   { id: 9, src: "/codeigniter.svg", name: "Code Igniter" },
   { id: 10, src: "/laravel.svg", name: "Laravel" },
   { id: 11, src: "/postgre.svg", name: "Postgresql" },
+  { id: 11, src: "/typescript.svg", name: "Typescript" },
 ];
 
 export default function Portfolio() {
