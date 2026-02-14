@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 const MENU = [
   { label: "Home", href: "#home" },
@@ -21,7 +22,14 @@ export default function Navbar() {
         <nav className="h-20 px-6 md:px-12 hidden md:grid grid-cols-3 items-center">
           {/* LEFT — NAMA */}
           <div className="flex items-center gap-3">
-            <span className="text-xl font-bold text-purple-400">Ϟ</span>
+            <Image
+              src="/logoidam.svg"
+              alt="Logo Idam"
+              width={32}
+              height={32}
+              className="object-contain"
+            />
+
             <span className="text-sm font-semibold text-white">
               Idam Palada
             </span>
@@ -90,7 +98,14 @@ export default function Navbar() {
         <nav className="h-16 px-6 flex md:hidden items-center justify-between relative z-[10000]">
           {/* LOGO */}
           <div className="flex items-center gap-3">
-            <span className="text-xl font-bold text-purple-400">Ϟ</span>
+            <Image
+              src="/logoidam.svg"
+              alt="Logo Idam"
+              width={28}
+              height={28}
+              className="object-contain"
+            />
+
             <span className="text-sm font-semibold text-white">
               Idam Palada
             </span>
