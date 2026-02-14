@@ -122,6 +122,7 @@ export default function Portfolio() {
                 onClick={() => setActiveId(isActive ? null : project.id)}
                 className="group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/40 transition-colors cursor-pointer"
               >
+                {/* MEDIA */}
                 <div className="relative h-[420px] bg-black">
                   <video
                     src={project.media}
@@ -133,27 +134,33 @@ export default function Portfolio() {
                   />
                 </div>
 
+                {/* OVERLAY */}
                 <div
-                  className={`absolute inset-0 bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center text-center px-6 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 ${
-                    isActive ? "opacity-100" : "opacity-0 md:opacity-0"
-                  }`}
+                  className={`
+            absolute inset-0
+            bg-black/70 backdrop-blur-sm
+            flex flex-col items-center justify-center
+            text-center px-6
+            transition-opacity duration-300
+            
+            md:opacity-0 md:group-hover:opacity-100
+            ${isActive ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none md:pointer-events-none"}
+          `}
                 >
                   <p className="text-gray-200 text-sm leading-relaxed mb-6">
                     {project.desc}
                   </p>
 
                   <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-                    {project.link && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(project.link, "_blank");
-                        }}
-                        className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-gray-200 transition"
-                      >
-                        View App
-                      </button>
-                    )}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open("https://example.com", "_blank");
+                      }}
+                      className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-gray-200 transition"
+                    >
+                      View App
+                    </button>
 
                     <Link
                       href={`/project/${project.id}`}
