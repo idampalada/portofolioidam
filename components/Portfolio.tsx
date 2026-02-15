@@ -60,7 +60,7 @@ const techStack = [
   { id: 9, src: "/codeigniter.svg", name: "Code Igniter" },
   { id: 10, src: "/laravel.svg", name: "Laravel" },
   { id: 11, src: "/postgre.svg", name: "Postgresql" },
-  { id: 11, src: "/typescript.svg", name: "Typescript" },
+  { id: 12, src: "/typescript.svg", name: "Typescript" },
 ];
 
 export default function Portfolio() {
@@ -122,7 +122,6 @@ export default function Portfolio() {
                 onClick={() => setActiveId(isActive ? null : project.id)}
                 className="group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/40 transition-colors cursor-pointer"
               >
-                {/* MEDIA */}
                 <div className="relative h-[420px] bg-black">
                   <video
                     src={project.media}
@@ -134,33 +133,27 @@ export default function Portfolio() {
                   />
                 </div>
 
-                {/* OVERLAY */}
                 <div
-                  className={`
-            absolute inset-0
-            bg-black/70 backdrop-blur-sm
-            flex flex-col items-center justify-center
-            text-center px-6
-            transition-opacity duration-300
-            
-            md:opacity-0 md:group-hover:opacity-100
-            ${isActive ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none md:pointer-events-none"}
-          `}
+                  className={`absolute inset-0 bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center text-center px-6 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 ${
+                    isActive ? "opacity-100" : "opacity-0 md:opacity-0"
+                  }`}
                 >
                   <p className="text-gray-200 text-sm leading-relaxed mb-6">
                     {project.desc}
                   </p>
 
                   <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open("https://example.com", "_blank");
-                      }}
-                      className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-gray-200 transition"
-                    >
-                      View App
-                    </button>
+                    {project.link && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(project.link, "_blank");
+                        }}
+                        className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-gray-200 transition"
+                      >
+                        View App
+                      </button>
+                    )}
 
                     <Link
                       href={`/project/${project.id}`}
@@ -179,11 +172,7 @@ export default function Portfolio() {
 
       {activeTab === "services" && (
         <div className="mt-16">
-          <h3 className="text-3xl font-semibold text-purple-400 text-center mb-12">
-            Services I Provide
-          </h3>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               "Website Development (Company Profile, Landing Page, E-Commerce)",
               "Fullstack Web Application",
@@ -203,23 +192,24 @@ export default function Portfolio() {
             ].map((service, index) => (
               <div
                 key={index}
-                className="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
+                className="group relative p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 overflow-hidden"
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-purple-600/20 text-purple-400 font-bold text-lg group-hover:bg-purple-600 group-hover:text-white transition">
-                    ✦
-                  </div>
-
-                  <p className="text-gray-300 group-hover:text-white transition leading-relaxed text-sm">
-                    {service}
-                  </p>
+                {/* Number badge */}
+                <div className="absolute -top-2 -right-2 w-12 h-12 bg-purple-600/20 rounded-full flex items-center justify-center text-purple-400 font-bold text-sm group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                  {String(index + 1).padStart(2, "0")}
                 </div>
+
+                {/* Animated line */}
+                <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-purple-600 to-purple-400 w-0 group-hover:w-full transition-all duration-500" />
+
+                <p className="text-gray-300 group-hover:text-white transition leading-relaxed">
+                  {service}
+                </p>
               </div>
             ))}
           </div>
         </div>
       )}
-
       {activeTab === "tech" && (
         <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 justify-items-center">
           {techStack.map((tech) => (
