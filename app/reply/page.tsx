@@ -26,11 +26,17 @@ export default function ReplyPage() {
 
   // 🔥 Fetch Sessions
   const fetchSessions = async () => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("messages")
-      .select("session_id, name")
+      .select("session_id, name, sender, created_at")
+      .eq("sender", "user") // ✅ hanya ambil dari user
       .not("session_id", "is", null)
       .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error(error);
+      return;
+    }
 
     if (data) {
       const uniqueMap = new Map<string, Session>();
