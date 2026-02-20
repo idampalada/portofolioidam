@@ -8,6 +8,7 @@ import Education from "@/components/Education";
 import Portfolio from "@/components/Portfolio";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -63,7 +64,6 @@ export default function Home() {
       {!loading && (
         <>
           <Navbar />
-
           <main className="bg-[#14062B] text-white pt-20">
             <Hero />
             <About />
@@ -71,8 +71,8 @@ export default function Home() {
             <Portfolio />
             <Contact />
           </main>
-
           <Footer />
+          <ChatWidget /> {/* Tambahkan ini */}
         </>
       )}
     </>
