@@ -10,7 +10,7 @@ const projects = [
   {
     id: 1,
     desc: "Merancang dan mengembangkan platform e-commerce fashion berbasis web dengan fokus pada UX dan performa aplikasi.",
-    media: "/sneakersflashh.mp4",
+    media: "/sneakersflash.mp4",
     type: "video",
     link: "https://sneakersflash.com/",
   },
@@ -44,6 +44,12 @@ const projects = [
     id: 6,
     desc: "Mengembangkan sistem manajemen aset termasuk integrasi perangkat IoT.",
     media: "/mapu.mp4",
+    type: "video",
+  },
+  {
+    id: 7,
+    desc: "Merancang dan mengembangkan sistem Transformasi Digital.",
+    media: "/transformasidigital.mp4",
     type: "video",
   },
 ];

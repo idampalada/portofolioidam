@@ -12,7 +12,7 @@ interface PageProps {
 
 export default function ProjectDetail({ params }: PageProps) {
   const slides = [
-    { type: "video", src: "/sneakersflashh.mp4" },
+    { type: "video", src: "/sneakersflash.mp4" },
     { type: "image", src: "/sneakersflash/halamanawall.png" },
     { type: "image", src: "/sneakersflash/halamanproduk.png" },
     { type: "image", src: "/sneakersflash/produk.png" },
@@ -147,7 +147,7 @@ export default function ProjectDetail({ params }: PageProps) {
             className="relative rounded-3xl overflow-hidden border border-white/10 bg-black cursor-pointer group"
           >
             <video
-              src="/sneakersflashh.mp4"
+              src="/sneakersflash.mp4"
               className="w-full h-full object-cover group-hover:opacity-80 transition"
               autoPlay
               muted

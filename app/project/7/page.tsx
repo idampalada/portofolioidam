@@ -12,12 +12,10 @@ interface PageProps {
 
 export default function ProjectDetail({ params }: PageProps) {
   const slides = [
-    { type: "video", src: "/chemkit.mp4" },
-    { type: "image", src: "/chemkit/halamanawal.png" },
-    { type: "image", src: "/chemkit/halamanawal2.png" },
-    { type: "image", src: "/chemkit/hubungikami.png" },
-    { type: "image", src: "/chemkit/produk.png" },
-    { type: "image", src: "/chemkit/visimisi.png" },
+    { type: "video", src: "/transformasidigital.mp4" },
+    { type: "image", src: "/transformasidigital/halamanlogin.png" },
+    { type: "image", src: "/transformasidigital/halamanawal.png" },
+    { type: "image", src: "/transformasidigital/input.png" },
   ];
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -68,7 +66,7 @@ export default function ProjectDetail({ params }: PageProps) {
         <span>Projects</span>
         <span>›</span>
         <span className="text-white">
-          Website Company Profile - PT Chemkit Multi Guna
+          Website Company Profile - Khazman Jaya Mandiri
         </span>
       </div>
 
@@ -76,14 +74,16 @@ export default function ProjectDetail({ params }: PageProps) {
         {/* LEFT CONTENT (TIDAK DIUBAH) */}
         <div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight text-[#F3C6D3]">
-            Website Company Profile <br /> PT Chemkit Multi Guna
+            Website E-Commerce <br />
+            Sneakers Flash
           </h1>
 
           <p className="text-gray-400 leading-relaxed mb-10">
-            Merancang dan mendesain website company profile laboratorium PT
-            Chemkit Multi Guna untuk menampilkan profil perusahaan, informasi
-            produk laboratorium, serta memperkuat citra profesional perusahaan
-            di bidang penyediaan kebutuhan laboratorium.
+            Merancang dan mengembangkan website company profile untuk perusahaan
+            di bidang logistik yang berfungsi sebagai media informasi resmi
+            perusahaan. Website ini menampilkan profil perusahaan, layanan
+            logistik, visi dan misi, serta informasi pendukung lainnya dengan
+            tampilan modern dan profesional.
           </p>
 
           <div className="flex gap-6 mb-10">
@@ -93,7 +93,7 @@ export default function ProjectDetail({ params }: PageProps) {
             </div>
 
             <div className="px-6 py-4 rounded-xl bg-white/5 border border-white/10">
-              <p className="text-xl font-bold">7</p>
+              <p className="text-xl font-bold">9</p>
               <p className="text-sm text-gray-400">Fitur Utama</p>
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function ProjectDetail({ params }: PageProps) {
             className="relative rounded-3xl overflow-hidden border border-white/10 bg-black cursor-pointer group"
           >
             <video
-              src="/chemkit.mp4"
+              src="/transformasidigital.mp4"
               className="w-full h-full object-cover group-hover:opacity-80 transition"
               autoPlay
               muted
