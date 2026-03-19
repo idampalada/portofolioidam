@@ -30,17 +30,22 @@ export default function ChatWidget() {
   const sessionId = useRef<string>("");
 
   // ================= SESSION =================
-  useEffect(() => {
-    const stored = localStorage.getItem("chat_session");
+useEffect(() => {
+  const storedSession = localStorage.getItem("chat_session");
+  const storedName = localStorage.getItem("chat_name");
+  const storedEmail = localStorage.getItem("chat_email");
 
-    if (stored) {
-      sessionId.current = stored;
-    } else {
-      const newId = crypto.randomUUID();
-      localStorage.setItem("chat_session", newId);
-      sessionId.current = newId;
-    }
-  }, []);
+  if (storedSession) {
+    sessionId.current = storedSession;
+  } else {
+    const newId = crypto.randomUUID();
+    localStorage.setItem("chat_session", newId);
+    sessionId.current = newId;
+  }
+
+  if (storedName) setName(storedName);
+  if (storedEmail) setEmail(storedEmail);
+}, []);
 
   // ================= AUTO SCROLL =================
   useEffect(() => {
@@ -74,10 +79,10 @@ export default function ChatWidget() {
 
   // ================= SEND MESSAGE =================
   const sendMessage = async () => {
-    if (!name || !email) {
-      alert("Mohon isi nama dan email terlebih dahulu.");
-      return;
-    }
+if ((!name || !email) && messages.length === 0) {
+  alert("Mohon isi nama dan email terlebih dahulu.");
+  return;
+}
 
     if (!input.trim()) return;
 
@@ -202,7 +207,10 @@ export default function ChatWidget() {
                   type="text"
                   placeholder="Nama Anda"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => {
+  setName(e.target.value);
+  localStorage.setItem("chat_name", e.target.value);
+}}
                   className="w-full px-3 py-2 rounded-lg bg-gray-800 text-white text-sm"
                 />
 
@@ -210,7 +218,10 @@ export default function ChatWidget() {
                   type="email"
                   placeholder="Email Anda"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+  setEmail(e.target.value);
+  localStorage.setItem("chat_email", e.target.value);
+}}
                   className="w-full px-3 py-2 rounded-lg bg-gray-800 text-white text-sm"
                 />
               </div>
