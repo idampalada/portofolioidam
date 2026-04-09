@@ -27,29 +27,37 @@ export default function ChatWidget() {
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const sessionId = useRef<string>("");
 
   // ================= SESSION =================
-useEffect(() => {
-  const storedSession = localStorage.getItem("chat_session");
-  const storedName = localStorage.getItem("chat_name");
-  const storedEmail = localStorage.getItem("chat_email");
+  useEffect(() => {
+    const storedSession = localStorage.getItem("chat_session");
+    const storedName = localStorage.getItem("chat_name");
+    const storedEmail = localStorage.getItem("chat_email");
 
-  if (storedSession) {
-    sessionId.current = storedSession;
-  } else {
-    const newId = crypto.randomUUID();
-    localStorage.setItem("chat_session", newId);
-    sessionId.current = newId;
-  }
+    if (storedSession) {
+      sessionId.current = storedSession;
+    } else {
+      const newId = crypto.randomUUID();
+      localStorage.setItem("chat_session", newId);
+      sessionId.current = newId;
+    }
 
-  if (storedName) setName(storedName);
-  if (storedEmail) setEmail(storedEmail);
-}, []);
+    if (storedName) setName(storedName);
+    if (storedEmail) setEmail(storedEmail);
+  }, []);
 
   // ================= AUTO SCROLL =================
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = containerRef.current;
+    if (!el) return;
+
+    const isAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 50;
+
+    if (isAtBottom) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages, typing]);
 
   // ================= FETCH MESSAGES =================
@@ -79,10 +87,10 @@ useEffect(() => {
 
   // ================= SEND MESSAGE =================
   const sendMessage = async () => {
-if ((!name || !email) && messages.length === 0) {
-  alert("Mohon isi nama dan email terlebih dahulu.");
-  return;
-}
+    if ((!name || !email) && messages.length === 0) {
+      alert("Mohon isi nama dan email terlebih dahulu.");
+      return;
+    }
 
     if (!input.trim()) return;
 
@@ -159,12 +167,15 @@ if ((!name || !email) && messages.length === 0) {
             </div>
 
             {/* ================= MESSAGE AREA ================= */}
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+            <div
+              ref={containerRef}
+              className="flex-1 overflow-y-auto px-4 py-4 space-y-3"
+            >
               {messages.length === 0 && (
                 <div className="text-gray-400 text-sm">
                   Halo! 👋 <br />
-                  Saya <b>Idam AI</b>. Silakan tanya tentang portfolio,
-                  project, atau skill saya.
+                  Saya <b>Idam AI</b>. Silakan tanya tentang portfolio, project,
+                  atau skill saya.
                 </div>
               )}
 
@@ -208,9 +219,9 @@ if ((!name || !email) && messages.length === 0) {
                   placeholder="Nama Anda"
                   value={name}
                   onChange={(e) => {
-  setName(e.target.value);
-  localStorage.setItem("chat_name", e.target.value);
-}}
+                    setName(e.target.value);
+                    localStorage.setItem("chat_name", e.target.value);
+                  }}
                   className="w-full px-3 py-2 rounded-lg bg-gray-800 text-white text-sm"
                 />
 
@@ -219,9 +230,9 @@ if ((!name || !email) && messages.length === 0) {
                   placeholder="Email Anda"
                   value={email}
                   onChange={(e) => {
-  setEmail(e.target.value);
-  localStorage.setItem("chat_email", e.target.value);
-}}
+                    setEmail(e.target.value);
+                    localStorage.setItem("chat_email", e.target.value);
+                  }}
                   className="w-full px-3 py-2 rounded-lg bg-gray-800 text-white text-sm"
                 />
               </div>

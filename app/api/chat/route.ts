@@ -11,15 +11,12 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const session_id: string = body.session_id;
-    const name: string = body.name;
-    const email: string = body.email;
-    const message: string = body.message;
+    const { session_id, name, email, message } = body;
 
     console.log("USER MESSAGE:", message);
 
     // =========================
-    // Simpan pesan user
+    // SIMPAN USER MESSAGE
     // =========================
     await supabase.from("messages").insert([
       {
@@ -32,75 +29,45 @@ export async function POST(req: NextRequest) {
     ]);
 
     // =========================
-    // Ambil FAQ dari database
+    // AMBIL FAQ
     // =========================
-    const { data: faqs, error: faqError } = await supabase
+    const { data: faqs } = await supabase
       .from("faq")
-      .select("*");
-
-    console.log("FAQ ERROR:", faqError);
-    console.log("FAQ DATA:", faqs);
-
-    const lowerMsg = message.toLowerCase();
+      .select("question, answer");
 
     // =========================
-    // Cek apakah pesan cocok FAQ
+    // FORMAT FAQ (JADI KNOWLEDGE)
     // =========================
-const matchedFAQ = faqs?.find((f: any) => {
-  const words = f.question
-    .toLowerCase()
-    .replace(/[^\w\s]/g, "")
-    .split(" ");
-
-  return words.some((word: string) =>
-    lowerMsg.includes(word)
-  );
-});
-    console.log("MATCHED FAQ:", matchedFAQ);
-
-    if (matchedFAQ) {
-      console.log("FAQ FOUND:", matchedFAQ.answer);
-
-      await supabase.from("messages").insert([
-        {
-          session_id,
-          name: "Idam AI",
-          email: null,
-          sender: "admin",
-          message: matchedFAQ.answer,
-        },
-      ]);
-
-      return Response.json({
-        success: true,
-        reply: matchedFAQ.answer,
-      });
-    }
+    const faqContext =
+      faqs?.map((f: any) => `Q: ${f.question}\nA: ${f.answer}`).join("\n\n") ||
+      "";
 
     // =========================
-    // Jika tidak ada FAQ cocok → pakai AI
+    // PANGGIL AI (HYBRID MODE)
     // =========================
-    const faqText =
-      faqs
-        ?.map(
-          (f: any) =>
-            `Pertanyaan: ${f.question}\nJawaban: ${f.answer}`
-        )
-        .join("\n\n") || "";
-
     const completion = await openai.chat.completions.create({
       model: "llama-3.3-70b-versatile",
+      temperature: 0.7,
       messages: [
         {
           role: "system",
           content: `
 Kamu adalah AI assistant di website portfolio Idam.
 
-Gunakan FAQ berikut jika relevan.
+🎯 TUGAS KAMU:
+- Jawab SEMUA pertanyaan user (umum atau spesifik)
+- Jika pertanyaan tentang Idam → gunakan data FAQ
+- Jika bukan tentang Idam → jawab seperti ChatGPT biasa
 
-${faqText}
+📚 DATA TENTANG IDAM:
+${faqContext}
 
-Jawab dengan ramah dan gunakan bahasa Indonesia.
+📌 ATURAN:
+- Jangan mengarang data tentang Idam di luar FAQ
+- Jika tidak ada di FAQ → bilang tidak tahu
+- Jawab dengan ramah, natural, dan profesional
+- Gunakan bahasa Indonesia
+
 `,
         },
         {
@@ -113,7 +80,7 @@ Jawab dengan ramah dan gunakan bahasa Indonesia.
     const aiReply = completion.choices[0].message.content;
 
     // =========================
-    // Simpan balasan AI
+    // SIMPAN BALASAN AI
     // =========================
     await supabase.from("messages").insert([
       {
@@ -129,13 +96,9 @@ Jawab dengan ramah dan gunakan bahasa Indonesia.
       success: true,
       reply: aiReply,
     });
-
   } catch (error) {
     console.error("API ERROR:", error);
 
-    return Response.json(
-      { error: "Server error" },
-      { status: 500 }
-    );
+    return Response.json({ error: "Server error" }, { status: 500 });
   }
 }
