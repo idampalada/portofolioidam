@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -18,6 +22,7 @@ interface TimelineItemProps {
   index: number;
   isExperience: boolean;
   isMobile: boolean;
+  columnIndex: number;
 }
 
 interface ColumnProps {
@@ -26,6 +31,7 @@ interface ColumnProps {
   data: TimelineEntry[];
   isExperience: boolean;
   isMobile: boolean;
+  columnIndex: number;
 }
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -92,40 +98,76 @@ function useIsMobile(): boolean {
   return isMobile;
 }
 
-// ─── Components ───────────────────────────────────────────────────────────────
+// ─── TimelineItem ─────────────────────────────────────────────────────────────
 
-function TimelineItem({ item, index, isMobile }: TimelineItemProps) {
-  const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+function TimelineItem({
+  item,
+  index,
+  isMobile,
+  columnIndex,
+}: TimelineItemProps) {
+  const itemRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const periodRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  // Warna disamakan semua jadi ungu
   const accentColor = "#a78bfa";
   const placeColor = "#c4b5fd";
+  const xFrom = columnIndex === 0 ? -40 : 40;
+
+  useEffect(() => {
+    const el = itemRef.current;
+    if (!el) return;
+
+    gsap.set(dotRef.current, { scale: 0, opacity: 0 });
+    gsap.set(lineRef.current, { scaleY: 0, transformOrigin: "top center" });
+    gsap.set(periodRef.current, { opacity: 0, y: -8 });
+    gsap.set(cardRef.current, { opacity: 0, x: xFrom, y: 10 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: el,
+        start: "top 88%",
+        end: "top 15%",
+        toggleActions: "play reverse play reverse",
+      },
+      delay: index * 0.12,
+    });
+
+    tl.to(dotRef.current, {
+      scale: 1,
+      opacity: 1,
+      duration: 0.4,
+      ease: "back.out(2.5)",
+    });
+    tl.to(
+      lineRef.current,
+      { scaleY: 1, duration: 0.5, ease: "power2.out" },
+      "-=0.1",
+    );
+    tl.to(
+      periodRef.current,
+      { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" },
+      "-=0.3",
+    );
+    tl.to(
+      cardRef.current,
+      { opacity: 1, x: 0, y: 0, duration: 0.55, ease: "power3.out" },
+      "-=0.2",
+    );
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach((st) => {
+        if (st.vars.trigger === el) st.kill();
+      });
+    };
+  }, [index, xFrom]);
 
   return (
-    <div
-      ref={ref}
-      style={{
-        display: "flex",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "none" : "translateY(20px)",
-        transition: `opacity 0.55s ease ${index * 0.1}s, transform 0.55s ease ${
-          index * 0.1
-        }s`,
-      }}
-    >
-      {/* Dot + vertical line */}
+    <div ref={itemRef} style={{ display: "flex" }}>
+      {/* Dot + line */}
       <div
         style={{
           display: "flex",
@@ -137,6 +179,7 @@ function TimelineItem({ item, index, isMobile }: TimelineItemProps) {
         }}
       >
         <div
+          ref={dotRef}
           style={{
             width: item.active ? "13px" : "9px",
             height: item.active ? "13px" : "9px",
@@ -148,9 +191,11 @@ function TimelineItem({ item, index, isMobile }: TimelineItemProps) {
             marginTop: "4px",
             flexShrink: 0,
             zIndex: 1,
+            boxShadow: item.active ? "0 0 10px rgba(167,139,250,0.6)" : "none",
           }}
         />
         <div
+          ref={lineRef}
           style={{
             width: "1.5px",
             flex: 1,
@@ -165,6 +210,7 @@ function TimelineItem({ item, index, isMobile }: TimelineItemProps) {
       {/* Period + card */}
       <div style={{ flex: 1, paddingBottom: "24px", minWidth: 0 }}>
         <div
+          ref={periodRef}
           style={{
             fontSize: "10.5px",
             fontWeight: 700,
@@ -179,6 +225,7 @@ function TimelineItem({ item, index, isMobile }: TimelineItemProps) {
         </div>
 
         <div
+          ref={cardRef}
           style={{
             background: "rgba(255,255,255,0.03)",
             border: "1px solid rgba(167,139,250,0.35)",
@@ -201,7 +248,6 @@ function TimelineItem({ item, index, isMobile }: TimelineItemProps) {
               "rgba(167,139,250,0.35)";
           }}
         >
-          {/* Tag */}
           <div
             style={{
               display: "inline-block",
@@ -232,7 +278,6 @@ function TimelineItem({ item, index, isMobile }: TimelineItemProps) {
           >
             {item.title}
           </h4>
-
           <p
             style={{
               fontSize: "12.5px",
@@ -243,7 +288,6 @@ function TimelineItem({ item, index, isMobile }: TimelineItemProps) {
           >
             {item.place}
           </p>
-
           <p
             style={{
               fontSize: "13px",
@@ -260,15 +304,45 @@ function TimelineItem({ item, index, isMobile }: TimelineItemProps) {
   );
 }
 
-function Column({ title, emoji, data, isExperience, isMobile }: ColumnProps) {
+// ─── Column ───────────────────────────────────────────────────────────────────
+
+function Column({
+  title,
+  emoji,
+  data,
+  isExperience,
+  isMobile,
+  columnIndex,
+}: ColumnProps) {
+  const headingRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!headingRef.current) return;
+    gsap.set(headingRef.current, { opacity: 0, y: 20 });
+    gsap.to(headingRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.65,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: headingRef.current,
+        start: "top 88%",
+        end: "top 20%",
+        toggleActions: "play reverse play reverse",
+      },
+    });
+  }, []);
+
   return (
     <div>
       <div
+        ref={headingRef}
         style={{
           display: "flex",
           alignItems: "center",
           gap: "10px",
           marginBottom: "28px",
+          opacity: 0,
         }}
       >
         <span style={{ fontSize: "20px" }}>{emoji}</span>
@@ -284,15 +358,15 @@ function Column({ title, emoji, data, isExperience, isMobile }: ColumnProps) {
           {title}
         </h3>
       </div>
-
       <div>
-        {data.map((item: TimelineEntry, i: number) => (
+        {data.map((item, i) => (
           <TimelineItem
             key={i}
             item={item}
             index={i}
             isExperience={isExperience}
             isMobile={isMobile}
+            columnIndex={columnIndex}
           />
         ))}
       </div>
@@ -304,42 +378,77 @@ function Column({ title, emoji, data, isExperience, isMobile }: ColumnProps) {
 
 export default function Education() {
   const isMobile = useIsMobile();
-  const [titleVisible, setTitleVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const eyebrowRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setTitleVisible(true), 100);
-    return () => clearTimeout(t);
+    const ctx = gsap.context(() => {
+      gsap.set(titleRef.current, {
+        opacity: 0,
+        clipPath: "inset(100% 0 0 0)",
+        y: 28,
+      });
+      gsap.set(eyebrowRef.current, { opacity: 0, y: 14 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 82%",
+          end: "top 15%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+
+      tl.to(eyebrowRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power3.out",
+      });
+      tl.to(
+        titleRef.current,
+        {
+          opacity: 1,
+          clipPath: "inset(0% 0 0 0)",
+          y: 0,
+          duration: 0.9,
+          ease: "expo.out",
+        },
+        "-=0.3",
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       id="education"
+      ref={sectionRef}
       className="relative scroll-mt-24 px-4 sm:px-6 pt-14 md:pt-24 pb-12 max-w-[1280px] mx-auto"
     >
-      <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap"
-        rel="stylesheet"
-      />
-
-      <div
-        className="mb-14 md:mb-24 text-center relative z-10"
-        style={{
-          opacity: titleVisible ? 1 : 0,
-          transform: titleVisible ? "none" : "translateY(-14px)",
-          transition: "opacity 0.7s ease, transform 0.7s ease",
-        }}
-      >
-        <h2 className="text-5xl md:text-6xl font-bold text-purple-400 mb-4">
+      {/* HEADER */}
+      <div className="mb-14 md:mb-24 text-center relative z-10">
+        <h2
+          ref={titleRef}
+          className="text-5xl md:text-6xl font-bold text-purple-400 mb-4"
+          style={{ opacity: 0 }}
+        >
           Education & Experience
         </h2>
-
-        <p className="flex items-center justify-center gap-3 text-gray-400">
+        <p
+          ref={eyebrowRef}
+          className="flex items-center justify-center gap-3 text-gray-400"
+          style={{ opacity: 0 }}
+        >
           <span className="text-purple-400">✦</span>
           Academic background & professional experience
           <span className="text-purple-400">✦</span>
         </p>
       </div>
 
+      {/* COLUMNS */}
       <div
         className="relative z-10"
         style={{
@@ -354,14 +463,15 @@ export default function Education() {
           data={educationData}
           isExperience={false}
           isMobile={isMobile}
+          columnIndex={0}
         />
-
         <Column
           title="My Experience"
           emoji="💼"
           data={experienceData}
           isExperience={true}
           isMobile={isMobile}
+          columnIndex={1}
         />
       </div>
     </section>
