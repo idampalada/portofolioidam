@@ -14,39 +14,24 @@ export default function LenisProvider({
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Register hanya di dalam useEffect (browser only)
     gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.normalizeScroll(true);
 
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
       smoothWheel: true,
-      // Prevent Lenis dari intercept scroll di dalam elemen overflow (chat, modal, dll)
-      prevent: (node) => {
-        return (
-          node.classList.contains("lenis-prevent") ||
-          node.closest(".lenis-prevent") !== null
-        );
-      },
     });
 
     lenisRef.current = lenis;
     setGlobalLenis(lenis);
 
-    // Sync Lenis scroll position ke ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
-    // Drive Lenis via GSAP ticker
     const tickerFn = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tickerFn);
-    gsap.ticker.lagSmoothing(0);
 
     return () => {
       gsap.ticker.remove(tickerFn);
       lenis.destroy();
-      lenisRef.current = null;
       setGlobalLenis(null);
     };
   }, []);
