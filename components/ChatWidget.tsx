@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { X, Send, Sparkles, Bot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
-import { useLenisStop } from "@/components/useLenis";
 
 type Message = {
   id: string;
@@ -24,9 +23,6 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [typing, setTyping] = useState(false);
   const [unread, setUnread] = useState(0);
-
-  // Stop Lenis scroll saat chat widget terbuka
-  useLenisStop(open);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -273,7 +269,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 280, damping: 24 }}
-            className="fixed bottom-6 right-6 w-[340px] h-[520px] z-50 flex flex-col rounded-2xl overflow-hidden shadow-2xl"
+            className="lenis-prevent fixed bottom-6 right-6 w-[340px] h-[520px] z-50 flex flex-col rounded-2xl overflow-hidden shadow-2xl"
             style={{
               background: "#0f172a",
               boxShadow:
@@ -336,6 +332,8 @@ export default function ChatWidget() {
             <div
               ref={containerRef}
               className="flex-1 overflow-y-auto px-4 py-4 space-y-3"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
             >
               {messages.length === 0 && (
                 <motion.div
