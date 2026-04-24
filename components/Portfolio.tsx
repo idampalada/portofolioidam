@@ -2,11 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useState } from "react";
 
 type TabType = "projects" | "services" | "tech";
 
@@ -77,122 +73,25 @@ export default function Portfolio() {
   const [activeId, setActiveId] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<TabType>("projects");
 
-  const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const eyebrowRef = useRef<HTMLParagraphElement>(null);
-  const tabBarRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  /* ── Header ScrollTrigger ── */
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.set([titleRef.current, eyebrowRef.current, tabBarRef.current], {
-        opacity: 0,
-        y: 28,
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 95%",
-          end: "bottom 0%",
-          toggleActions: "play none play none",
-          onEnter: () => tl.restart(),
-          onEnterBack: () => tl.restart(),
-        },
-        defaults: { ease: "power3.out" },
-      });
-
-      tl.to(titleRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: "expo.out",
-      });
-      tl.to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.55 }, "-=0.4");
-      tl.to(
-        tabBarRef.current,
-        { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" },
-        "-=0.3",
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  /* ── Content items ScrollTrigger (re-run on tab change) ── */
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // small delay to let DOM settle after tab switch
-      const raf = requestAnimationFrame(() => {
-        const cards =
-          contentRef.current?.querySelectorAll<HTMLElement>(".anim-card");
-        if (!cards || cards.length === 0) return;
-
-        gsap.set(cards, { opacity: 0, y: 40, scale: 0.96 });
-
-        cards.forEach((card, i) => {
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: card,
-              start: "top 92%",
-              end: "bottom 5%",
-              toggleActions: "play none play none",
-              onEnter: () => tl.restart(),
-              onEnterBack: () => tl.restart(),
-            },
-          });
-          tl.to(card, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.55,
-            ease: "power3.out",
-            delay: (i % 3) * 0.08, // stagger per row
-          });
-        });
-
-        ScrollTrigger.refresh();
-      });
-
-      return () => cancelAnimationFrame(raf);
-    }, contentRef);
-
-    return () => ctx.revert();
-  }, [activeTab]);
-
   return (
     <section
       id="portfolio"
-      ref={sectionRef}
       className="relative scroll-mt-24 px-6 pt-20 pb-32 max-w-[1280px] mx-auto"
     >
       {/* HEADER */}
       <div className="mb-10 text-center">
-        <h2
-          ref={titleRef}
-          className="text-5xl md:text-6xl font-bold text-purple-400 mb-4"
-          style={{ opacity: 0 }}
-        >
+        <h2 className="text-5xl md:text-6xl font-bold text-purple-400 mb-4">
           Project Portfolio
         </h2>
 
-        <p
-          ref={eyebrowRef}
-          className="flex items-center justify-center gap-3 text-gray-400 mb-8"
-          style={{ opacity: 0 }}
-        >
+        <p className="flex items-center justify-center gap-3 text-gray-400 mb-8">
           <span className="text-purple-400">✦</span>
-          Selected projects I've worked on
+          Selected projects I’ve worked on
           <span className="text-purple-400">✦</span>
         </p>
 
         {/* TAB MENU */}
-        <div
-          ref={tabBarRef}
-          className="flex justify-center"
-          style={{ opacity: 0 }}
-        >
+        <div className="flex justify-center">
           <div className="flex gap-2 bg-white/5 p-2 rounded-xl border border-white/10">
             {[
               { key: "projects", label: "Projects" },
@@ -207,7 +106,8 @@ export default function Portfolio() {
                     activeTab === tab.key
                       ? "bg-purple-600 text-white shadow-lg shadow-purple-600/30"
                       : "text-gray-400 hover:text-white hover:bg-white/10"
-                  }`}
+                  }
+                `}
               >
                 {tab.label}
               </button>
@@ -217,128 +117,136 @@ export default function Portfolio() {
       </div>
 
       {/* CONTENT */}
-      <div ref={contentRef}>
-        {/* PROJECTS */}
-        {activeTab === "projects" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {projects.map((project) => {
-              const isActive = activeId === project.id;
-              return (
-                <div
-                  key={project.id}
-                  onClick={() => setActiveId(isActive ? null : project.id)}
-                  className="anim-card group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/40 transition-colors cursor-pointer"
-                  style={{ opacity: 0 }}
-                >
-                  <div className="relative h-[420px] bg-black">
-                    <video
-                      src={project.media}
-                      className="w-full h-full object-cover"
-                      muted
-                      loop
-                      autoPlay
-                      playsInline
-                    />
-                  </div>
+      {activeTab === "projects" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {projects.map((project) => {
+            const isActive = activeId === project.id;
 
-                  <div
-                    className={`absolute inset-0 bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center text-center px-6 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 ${
-                      isActive ? "opacity-100" : "opacity-0 md:opacity-0"
-                    }`}
-                  >
-                    <p className="text-gray-200 text-sm leading-relaxed mb-6">
-                      {project.desc}
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-                      {project.link && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(project.link, "_blank");
-                          }}
-                          className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-gray-200 transition"
-                        >
-                          View App
-                        </button>
-                      )}
-                      <Link
-                        href={`/project/${project.id}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="px-4 py-2 rounded-lg bg-black/40 text-white text-sm font-medium border border-white/20 hover:bg-black/60 transition"
-                      >
-                        Details →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {/* SERVICES */}
-        {activeTab === "services" && (
-          <div className="mt-16">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                "Website Development (Company Profile, Landing Page, E-Commerce)",
-                "Fullstack Web Application",
-                "UI/UX Design (Figma)",
-                "SEO Optimization",
-                "Website Maintenance & Deployment",
-                "REST API Development & Integration",
-                "Database Design & Management",
-                "Authentication & Authorization System",
-                "Admin Dashboard & CMS Development",
-                "Performance Optimization & Debugging",
-                "Responsive & Mobile-First Development",
-                "Third-Party API Integration",
-                "Version Control & Team Collaboration (Git)",
-                "Hosting Setup (VPS, Cloud, cPanel)",
-                "Website Security & Performance Monitoring",
-              ].map((service, index) => (
-                <div
-                  key={index}
-                  className="anim-card group relative p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 overflow-hidden"
-                  style={{ opacity: 0 }}
-                >
-                  <div className="absolute -top-2 -right-2 w-12 h-12 bg-purple-600/20 rounded-full flex items-center justify-center text-purple-400 font-bold text-sm group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 group-hover:scale-110">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                  <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-purple-600 to-purple-400 w-0 group-hover:w-full transition-all duration-500" />
-                  <p className="text-gray-300 group-hover:text-white transition leading-relaxed">
-                    {service}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* TECH STACK */}
-        {activeTab === "tech" && (
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 justify-items-center">
-            {techStack.map((tech) => (
+            return (
               <div
-                key={tech.id}
-                className="anim-card group w-36 h-36 bg-white/5 border border-white/10 rounded-2xl flex flex-col items-center justify-center gap-3 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
-                style={{ opacity: 0 }}
+                key={project.id}
+                onClick={() => setActiveId(isActive ? null : project.id)}
+                className="group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/40 transition-colors cursor-pointer"
               >
-                <Image
-                  src={tech.src}
-                  alt={tech.name}
-                  width={55}
-                  height={55}
-                  className="opacity-80 group-hover:opacity-100 transition duration-300"
-                />
-                <p className="text-sm text-gray-400 group-hover:text-white transition duration-300">
-                  {tech.name}
+                <div className="relative h-[420px] bg-black">
+                  <video
+                    src={project.media}
+                    className="w-full h-full object-cover"
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                  />
+                </div>
+
+                <div
+                  className={`absolute inset-0 bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center text-center px-6 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 ${
+                    isActive ? "opacity-100" : "opacity-0 md:opacity-0"
+                  }`}
+                >
+                  <p className="text-gray-200 text-sm leading-relaxed mb-6">
+                    {project.desc}
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                    {project.link && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(project.link, "_blank");
+                        }}
+                        className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-gray-200 transition"
+                      >
+                        View App
+                      </button>
+                    )}
+
+                    <Link
+                      href={`/project/${project.id}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="px-4 py-2 rounded-lg bg-black/40 text-white text-sm font-medium border border-white/20 hover:bg-black/60 transition"
+                    >
+                      Details →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {activeTab === "services" && (
+        <div className="mt-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              "Website Development (Company Profile, Landing Page, E-Commerce)",
+              "Fullstack Web Application",
+              "UI/UX Design (Figma)",
+              "SEO Optimization",
+              "Website Maintenance & Deployment",
+              "REST API Development & Integration",
+              "Database Design & Management",
+              "Authentication & Authorization System",
+              "Admin Dashboard & CMS Development",
+              "Performance Optimization & Debugging",
+              "Responsive & Mobile-First Development",
+              "Third-Party API Integration",
+              "Version Control & Team Collaboration (Git)",
+              "Hosting Setup (VPS, Cloud, cPanel)",
+              "Website Security & Performance Monitoring",
+            ].map((service, index) => (
+              <div
+                key={index}
+                className="group relative p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 overflow-hidden"
+              >
+                {/* Number badge */}
+                <div className="absolute -top-2 -right-2 w-12 h-12 bg-purple-600/20 rounded-full flex items-center justify-center text-purple-400 font-bold text-sm group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+
+                {/* Animated line */}
+                <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-purple-600 to-purple-400 w-0 group-hover:w-full transition-all duration-500" />
+
+                <p className="text-gray-300 group-hover:text-white transition leading-relaxed">
+                  {service}
                 </p>
               </div>
             ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
+      {activeTab === "tech" && (
+        <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 justify-items-center">
+          {techStack.map((tech) => (
+            <div
+              key={tech.id}
+              className="
+          group w-36 h-36
+          bg-white/5 border border-white/10
+          rounded-2xl
+          flex flex-col items-center justify-center
+          gap-3
+          hover:border-purple-500/40
+          hover:shadow-lg hover:shadow-purple-500/20
+          transition-all duration-300
+        "
+            >
+              <Image
+                src={tech.src}
+                alt={tech.name}
+                width={55}
+                height={55}
+                className="opacity-80 group-hover:opacity-100 transition duration-300"
+              />
+
+              <p className="text-sm text-gray-400 group-hover:text-white transition duration-300">
+                {tech.name}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
